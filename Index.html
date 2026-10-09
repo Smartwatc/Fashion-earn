@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Earn — Ganhe Assistindo Vídeos de Moda</title>
+    <meta name="description" content="Assista a vídeos de moda e ganhe $50 USD por visualização na Fashion Earn.">
+    <!-- Google Fonts Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Paleta de Cores: Preto e Verde Esmeralda Suave */
+            --bg-dark: #080c0a;
+            --card-bg: #111814;
+            --surface: #16221b;
+            --border-color: #203328;
+            --accent-green: #10b981; /* Verde esmeralda suave */
+            --accent-green-dark: #059669;
+            --accent-green-hover: #047857;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --gold: #fbbf24;
+            --danger: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ---------------- HEADER / NAVBAR ---------------- */
+        header {
+            background-color: rgba(17, 24, 20, 0.95);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-logo i {
+            color: var(--accent-green);
+        }
+
+        .brand-logo span {
+            color: var(--accent-green);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-balance-badge {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.88rem;
+        }
+
+        .balance-usd {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .balance-aoa {
+            color: var(--accent-green);
+            font-weight: 600;
+        }
+
+        .btn {
+            background-color: var(--accent-green-dark);
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-green-hover);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        /* ---------------- LAYOUT DE 3 COLUNAS ---------------- */
+        .main-container {
+            max-width: 1380px;
+            margin: 24px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 280px 1fr 340px;
+            gap: 24px;
+            flex: 1;
+        }
+
+        /* CARD GERAL */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-main);
+        }
+
+        .card-title i {
+            color: var(--accent-green);
+        }
+
+        /* COLUNA 1: PERFIL & PAINEL */
+        .profile-card {
+            text-align: center;
+        }
+
+        .avatar-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 2px solid var(--accent-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--accent-green);
+            margin: 0 auto 12px;
+        }
+
+        .user-email-display {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            word-break: break-all;
+        }
+
+        .stats-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 16px;
+            text-align: left;
+        }
+
+        .stat-item {
+            background: var(--surface);
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        .exchange-box {
+            margin-top: 20px;
+            padding: 12px;
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px dashed var(--accent-green);
+            border-radius: 10px;
+            font-size: 0.82rem;
+            text-align: center;
+            color: var(--accent-green);
+        }
+
+        /* COLUNA 2: FEED DE VÍDEOS */
+        .feed-header {
+            margin-bottom: 16px;
+        }
+
+        .feed-header h1 {
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+        }
+
+        .feed-header p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .video-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-green);
+        }
+
+        .thumbnail-container {
+            position: relative;
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .thumbnail-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .reward-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--gold);
+            color: #000;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            z-index: 2;
+        }
+
+        .play-icon-btn {
+            position: relative;
+            z-index: 2;
+            width: 48px;
+            height: 48px;
+            background: rgba(16, 185, 129, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .play-icon-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .video-body {
+            padding: 14px;
+        }
+
+        .video-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .watch-button {
+            width: 100%;
+            background: var(--accent-green-dark);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+
+        .watch-button:hover {
+            background: var(--accent-green-hover);
+        }
+
+        .watch-button:disabled {
+            background: #2a3830;
+            color: var(--text-muted);
+            cursor: not-allowed;
+        }
+
+        /* COLUNA 3: CARTEIRA & SAQUE */
+        .wallet-display {
+            background: var(--surface);
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .wallet-amount-usd {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .wallet-amount-aoa {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent-green);
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 12px;
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-green);
+        }
+
+        .withdraw-submit-btn {
+            width: 100%;
+            background: var(--accent-green);
+            color: #000;
+            font-weight: 700;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .withdraw-submit-btn:hover {
+            background: #34d399;
+        }
+
+        /* MODAL DE AUTH */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 400px;
+            padding: 24px;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .modal-title {
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        /* FOOTER */
+        footer {
+            margin-top: auto;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 20px;
+            text-align: center;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        /* RESPONSIVIDADE (MOBILE / TABLET) */
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <a href="#" class="brand-logo">
+            <i class="fa-solid fa-shirt"></i>
+            Fashion <span>Earn</span>
+        </a>
+
+        <div class="header-actions">
+            <div class="user-balance-badge">
+                <div><i class="fa-solid fa-dollar-sign" style="color:var(--gold);"></i> <span class="balance-usd" id="nav-usd">$0.00</span></div>
+                <span>|</span>
+                <div><i class="fa-solid fa-money-bill-wave" style="color:var(--accent-green);"></i> <span class="balance-aoa" id="nav-aoa">0 Kz</span></div>
+            </div>
+
+            <button class="btn btn-outline" id="auth-btn" onclick="abrirModalAuth()">
+                <i class="fa-solid fa-user"></i> <span id="auth-btn-text">Entrar</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- CONTAINER PRINCIPAL (3 COLUNAS) -->
+    <div class="main-container">
+
+        <!-- COLUNA 1: PERFIL DO UTILIZADOR -->
+        <aside class="card profile-card">
+            <div class="avatar-circle">
+                <i class="fa-solid fa-user-astronaut"></i>
+            </div>
+            <h3 id="user-display-name">Convidado</h3>
+            <p class="user-email-display" id="user-display-email">Faz login para acumular saldo</p>
+
+            <div class="stats-list">
+                <div class="stat-item">
+                    <div class="stat-label">Saldo Disponível</div>
+                    <div class="stat-value" style="color: var(--gold);" id="profile-usd">$0.00 USD</div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-label">Valor em Kwanzas</div>
+                    <div class="stat-value" style="color: var(--accent-green);" id="profile-aoa">0 Kz</div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-label">Recompensa por Vídeo</div>
+                    <div class="stat-value" style="color: #60a5fa;">$50.00 USD</div>
+                </div>
+            </div>
+
+            <div class="exchange-box">
+                <i class="fa-solid fa-calculator"></i> Câmbio Atual:<br>
+                <strong>1 USD = 920 Kz</strong>
+            </div>
+        </aside>
+
+        <!-- COLUNA 2: FEED DE VÍDEOS -->
+        <main class="feed-section">
+            <div class="feed-header">
+                <h1><i class="fa-solid fa-circle-play" style="color: var(--accent-green);"></i> Assista e Ganhe</h1>
+                <p>Assista aos vídeos de moda durante 30 segundos para receber $50.00 USD (46.000 Kz) por cada um.</p>
+            </div>
+
+            <div class="video-grid">
+                <!-- Vídeo 1 -->
+                <div class="video-card">
+                    <div class="thumbnail-container" style="background-image: url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=500&auto=format&fit=crop');">
+                        <div class="thumbnail-overlay"></div>
+                        <div class="reward-badge">+$50.00 USD</div>
+                        <div class="play-icon-btn" onclick="assistirVideo(1, '11111111-1111-1111-1111-111111111111')">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="video-body">
+                        <div class="video-title">Tendências da Semana de Moda de Paris 2026</div>
+                        <div class="video-meta">
+                            <span><i class="fa-regular fa-clock"></i> 30s</span>
+                            <span><i class="fa-solid fa-eye"></i> +14.2k</span>
+                        </div>
+                        <button class="watch-button" id="btn-1" onclick="assistirVideo(1, '11111111-1111-1111-1111-111111111111')">
+                            <i class="fa-solid fa-play"></i> Assistir (+$50.00)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Vídeo 2 -->
+                <div class="video-card">
+                    <div class="thumbnail-container" style="background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?w=500&auto=format&fit=crop');">
+                        <div class="thumbnail-overlay"></div>
+                        <div class="reward-badge">+$50.00 USD</div>
+                        <div class="play-icon-btn" onclick="assistirVideo(2, '22222222-2222-2222-2222-222222222222')">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="video-body">
+                        <div class="video-title">Dicas de Estilo Masculino & Acessórios</div>
+                        <div class="video-meta">
+                            <span><i class="fa-regular fa-clock"></i> 30s</span>
+                            <span><i class="fa-solid fa-eye"></i> +9.8k</span>
+                        </div>
+                        <button class="watch-button" id="btn-2" onclick="assistirVideo(2, '22222222-2222-2222-2222-222222222222')">
+                            <i class="fa-solid fa-play"></i> Assistir (+$50.00)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Vídeo 3 -->
+                <div class="video-card">
+                    <div class="thumbnail-container" style="background-image: url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500&auto=format&fit=crop');">
+                        <div class="thumbnail-overlay"></div>
+                        <div class="reward-badge">+$50.00 USD</div>
+                        <div class="play-icon-btn" onclick="assistirVideo(3, '33333333-3333-3333-3333-333333333333')">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="video-body">
+                        <div class="video-title">Desfile de Alta Costura Verão 2026</div>
+                        <div class="video-meta">
+                            <span><i class="fa-regular fa-clock"></i> 30s</span>
+                            <span><i class="fa-solid fa-eye"></i> +18.5k</span>
+                        </div>
+                        <button class="watch-button" id="btn-3" onclick="assistirVideo(3, '33333333-3333-3333-3333-333333333333')">
+                            <i class="fa-solid fa-play"></i> Assistir (+$50.00)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- COLUNA 3: CARTEIRA & SOLICITAÇÃO DE SAQUE -->
+        <aside class="card">
+            <h2 class="card-title">
+                <i class="fa-solid fa-wallet"></i> Carteira & Saques
+            </h2>
+
+            <div class="wallet-display">
+                <div class="wallet-amount-usd" id="wallet-usd">$0.00</div>
+                <div class="wallet-amount-aoa" id="wallet-aoa">0 Kz</div>
+            </div>
+
+            <form onsubmit="solicitarSaque(event)">
+                <div class="form-group">
+                    <label f
